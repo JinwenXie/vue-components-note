@@ -45,7 +45,21 @@ mockjs
 
     main.js引入：
 
-        require('./mock.js);
+        require('./mock.js');
+
+    解决跨域问题：
+        config/index.js
+
+            proxyTable: {
+                '/api': {  
+                    target: 'http://api.douban.com',//设置你调用的接口域名和端口号  			
+                    changeOrigin: true, //跨域  			
+                    pathRewrite: {  
+                    '^/api': '/' 			
+                    }  
+                }
+            },
+            host: 'xjw.pconline.com.cn', // 使用自己host文件下配置的域名s
 
 
 
@@ -79,22 +93,29 @@ axios
             return Promise.reject(error);
         })
         
-        // 封装axios的post请求
-        export function fetch(url, params) {
-            return new Promise((resolve, reject) => {
-                axios.post(url, params)
-                .then(response => {
-                    resolve(response.data);
-                })
-                .catch((error) => {
-                    reject(error);
-                })
-            })
-        }
-        
+        // 封装axios的get/post请求
         export default {
-            mockdata(url, params) {
-                return fetch(url, params);
+            post(url, params){
+                return new Promise((resolve, reject) => {
+                    axios.post(url, params)
+                    .then(response => {
+                        resolve(response.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+                })
+            },
+            get(url, params){
+                return new Promise((resolve, reject) => {
+                    axios.get(url, params)
+                    .then(response => {
+                        resolve(response.data);
+                    })
+                    .catch((error) => {
+                        reject(error);
+                    })
+                }) 
             }
         }
         /* end */
