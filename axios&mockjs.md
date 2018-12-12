@@ -66,7 +66,7 @@ mockjs
 axios
     安装：
 
-        cnpm install axios --save-dev
+        cnpm install axios qs --save-dev
 
     新建目录结构 
 
@@ -76,11 +76,15 @@ axios
 
         /* start */
         import axios from 'axios'
+        import qs from 'qs'
  
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
         
         // 请求拦截器
         axios.interceptors.request.use(function(config) {
+            if (config.method === 'post') {
+                config.data = qs.stringify(config.data)
+            }
             return config;
         }, function(error) {
             return Promise.reject(error);

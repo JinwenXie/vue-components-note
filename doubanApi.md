@@ -1,3 +1,14 @@
+1、即将上映
+    接口：https://api.douban.com/v2/movie/coming_soon
+
+    参数：
+        start : 数据的开始项
+        count：单页条数
+        city：城市
+
+        如：获取“北京”热映电影“第二页”每页“25条”数据：
+            https://api.douban.com/v2/movie/coming_soon?city=北京&start=25&count=25
+
 1、豆瓣热映
     接口：https://api.douban.com/v2/movie/in_theaters
 
